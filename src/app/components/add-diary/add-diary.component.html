@@ -1,0 +1,33 @@
+<div class="card flex justify-content-center align-items-center w-full mt-3">
+  <form [formGroup]="diaryForm" (ngSubmit)="submitRecord()">
+    <p-card header="Participation form" [style]="{maxWidth: '600px'}">
+      <div class="field">
+        <label for="trainingDuration">Duration [mins]</label>
+        <p-inputNumber [(ngModel)]="trainingDurationValue" inputId="minmax" mode="decimal" [min]="0" [max]="241"
+        name="trainingDuration" id="trainingDuration" formControlName="trainingDuration" class="w-full"
+        [style]="{width: '100%'}"> </p-inputNumber>
+      </div>
+      <div class="field">
+        <label for="currentWeight">Current weight</label>
+        <p-inputNumber [(ngModel)]="currentWeightValue" inputId="minmax" mode="decimal" [min]="0" [max]="211"
+                       [minFractionDigits]="0" [maxFractionDigits]="2" [style]="{width: '100%'}" class="w-full"
+                       name="currentWeight" id="currentWeight" formControlName="currentWeight"></p-inputNumber>
+      </div>
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea rows="5" cols="30" pInputTextarea id="description" name="description"
+        formControlName="description" class="w-full"></textarea>
+      </div>
+      <p-button type="submit" label="Create Record" [disabled]="checkValidity() == false" styleClass="w-full"></p-button>
+      <small *ngIf="this.trainingDuration.touched && this.trainingDurationValue < 1" class="block p-error">
+        Training duration is required
+      </small>
+      <small *ngIf="this.currentWeight.touched && this.trainingDurationValue >= 1 && this.currentWeightValue < 1" class="block p-error">
+        Current weight is required
+      </small>
+      <small *ngIf="this.description.touched && this.trainingDurationValue >= 1 && this.currentWeightValue >= 1 && checkValidity() == false" class="block p-error">
+        Description is required
+      </small>
+    </p-card>
+  </form>
+</div>

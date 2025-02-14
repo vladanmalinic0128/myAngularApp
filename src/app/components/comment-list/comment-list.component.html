@@ -1,0 +1,18 @@
+<p-card>
+  <p class="m-0">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+</p-card>
+<div *ngFor="let comment of comments">
+  <p-fieldset styleClass="mt-3" [ngClass]="{'align-treeset': comment.response}">
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center gap-2 px-2">
+          <p-avatar image="{{comment.avatar }}" shape="circle" />
+          <span class="font-bold">{{comment.fullName}}</span>
+        </div>
+      </ng-template>
+      <p class="m-0">{{comment.content}}</p>
+      <div class="text-600 w-full md:w-8 md:flex-order-0 flex-order-1 mt-2">{{comment.time}}</div>
+  </p-fieldset>
+</div>

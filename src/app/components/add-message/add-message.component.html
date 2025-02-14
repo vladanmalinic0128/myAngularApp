@@ -1,0 +1,33 @@
+<div class="card flex justify-content-center align-items-center w-full mt-3">
+  <form [formGroup]="messageForm" (ngSubmit)="submitMessage()">
+    <p-card header="Send message" [style]="{maxWidth: '600px'}">
+      <div class="field">
+        <label for="selectedUser">Choose user</label>
+        <p-dropdown [options]="users" [(ngModel)]="selectedUser" placeholder="Select a User" [group]="true"
+                    name="selectedUser" id="selectedUser" formControlName="selectedUser" styleClass="w-full">
+          <ng-template let-group pTemplate="group">
+            <div class="flex align-items-center">
+              <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                   [class]="'mr-2 flag flag-' + 'de'" style="width: 20px"/>
+              <span>{{ group.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea rows="5" cols="30" pInputTextarea id="message" name="message"
+                  formControlName="message" class="w-full"></textarea>
+      </div>
+      <p-button type="submit" label="Send message" [disabled]="checkValidity() == false"
+                styleClass="w-full"></p-button>
+      <small *ngIf="this.selectedUsersControl.touched && this.selectedUser == null" class="block p-error">
+        Select a user
+      </small>
+      <small *ngIf="this.selectedUsersControl.touched && this.selectedUser != null && this.messageControl.value.length < 1"
+             class="block p-error">
+        Message is required
+      </small>
+    </p-card>
+  </form>
+</div>

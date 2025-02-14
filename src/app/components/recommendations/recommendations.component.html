@@ -1,0 +1,9 @@
+<div *ngFor="let item of recommendations" class="p-5">
+  <p-card header="{{item.name}}" >
+    <p class="m-2 align-items-start"><b>Difficulty: </b> {{item.difficulty}}</p>
+    <p class="m-2 align-items-start"><b>Equipment: </b> {{item.equipment}}</p>
+    <p class="m-2 align-items-start"><b>Muscle: </b> {{item.muscle}}</p>
+    <p class="m-2 align-items-start"><b>Type: </b>{{item.type}}</p>
+    <p class="m-2"><b>Instructions: </b>{{item.instructions}}</p>
+  </p-card>
+</div>

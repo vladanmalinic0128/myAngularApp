@@ -1,0 +1,32 @@
+<div class="flex justify-content-center align-items-center h-full">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <p-card header="{{ this.verifyMailMode == false?'Sign In': 'Mail Verification Request'}}"
+            [style]="{width: '360px'}">
+      <p class="m-0 mb-3 text-yellow-600" *ngIf="this.verifyMailMode">
+        Your email is not verified. Please fill the form below and verify your email. After that, login will be enabled.
+      </p>
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" pInputText formControlName="username" class="w-full" name="username" id="username"
+               placeholder="Enter your username"/>
+        <small *ngIf="username.invalid && username.touched" class="block p-error">
+          <div *ngIf="username.errors?.['required']">Username is required</div>
+        </small>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" pInputText formControlName="password" class="w-full" name="password" id="password"
+               placeholder="Enter your password"/>
+        <small *ngIf="password.invalid && password.touched" class="block p-error">
+          <div *ngIf="password.errors?.['required']">Password is required</div>
+        </small>
+      </div>
+      <p-button label="{{ this.verifyMailMode == false?'Sign in': 'Verify data'}}" styleClass="w-full"
+                [disabled]="loginForm.invalid" type="submit"></p-button>
+      <div class="flex flex-column align-items-center mt-2 w-full">
+        <p>Not a member? <a routerLink="/registration" class="custom-link">Register</a></p>
+        <a routerLink="/home" class="custom-link">Back to home page</a>
+      </div>
+    </p-card>
+  </form>
+</div>

@@ -1,0 +1,20 @@
+<div *ngFor="let item of messages" class="p-5">
+  <p-card [style]="{ 'min-width': '370px' }" styleClass="p-2">
+    <ng-template pTemplate="header">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+          <img *ngIf="item.avatar" [src]="item.avatar" alt="Avatar" [style]="{'width': '40px', 'height': '40px', 'border-radius': '50%', 'border': item.seen ? '2px solid #ccc' : '2px solid var(--primary-color)'}">
+          <span style="margin-left: 10px;"><b>{{item.fullName}}</b></span>
+        </div>
+        <button pButton type="button" [label]="item.seen ? 'Mark as unread' : 'Mark as read'" icon="pi pi-eye" iconPos="right" (click)="toggleSeen(item)" [ngClass]="{'p-button-secondary': item.seen}" class="mr-2"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div>{{item.content}}</div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div style="text-align: right; color: #888;" class="pt-2">{{item.time}}</div>
+    </ng-template>
+  </p-card>
+</div>
+

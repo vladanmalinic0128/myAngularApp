@@ -1,0 +1,9 @@
+<div *ngIf="this.isUserLoggedIn()" class="flex flex-column mt-3">
+  <form [formGroup]="addCommentForm" (ngSubmit)="submitComment()">
+      <span  class="p-float-label w-full mt-3">
+          <textarea pInputText id="comment" name="comment" rows="3" class="w-full" pInputTextarea formControlName="comment"></textarea>
+          <label for="comment">Write your comment here...</label>
+      </span>
+      <p-button type="submit" label="Submit" class="align-self-end" [disabled]="this.comment.value.length < 1"></p-button>
+  </form>
+</div>

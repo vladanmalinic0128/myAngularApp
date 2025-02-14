@@ -1,0 +1,23 @@
+<div class="card flex justify-content-center align-items-center w-full">
+  <form [formGroup]="participationForm" (ngSubmit)="submitParticipation()">
+    <p-card header="Participation form" [style]="{maxWidth: '600px'}">
+    <div class="field">
+        <label for="selectedPaymentType">City</label>
+        <p-dropdown formControlName="selectedPaymentType" [options]="paymentTypes" optionLabel="name" placeholder="Select a Payment Type"
+                    name="selectedPaymentType" id="selectedPaymentType" styleClass="w-full" [(ngModel)]="chosenPaymentType"></p-dropdown>
+      </div>
+      <div *ngIf="this.chosenPaymentType !== null && this.chosenPaymentType.id !== 1" class="field flex flex-column">
+        <label for="cardNumber">Card Number</label>
+        <p-inputMask mask="9999-9999-9999-9999" formControlName="cardNumber"  placeholder="9999-9999-9999-9999"
+        id="cardNumber" name="cardNumber" styleClass="w-full"></p-inputMask>
+      </div>
+      <p-button type="submit" label="Create Participation" [disabled]="checkCardNumber() == false" styleClass="w-full"></p-button>
+      <small *ngIf="this.chosenPaymentType === null" class="block p-error">
+        Choose payment type
+      </small>
+      <small *ngIf="this.chosenPaymentType !== null && checkCardNumber() == false" class="block p-error">
+        Input valid Card number
+      </small>
+    </p-card>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+@import 'primeng/resources/themes/saga-blue/theme.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeflex/primeflex.css';
+@import 'primeicons/primeicons.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.custom-link {
+  text-decoration: none;
+  color: #75A0B1;
+  cursor: pointer;
+}

@@ -1,0 +1,138 @@
+<div class="card flex justify-content-center align-items-center h-full mt-5">
+  <form [formGroup]="fitnessProgramForm" (ngSubmit)="submitDetails()">
+    <p-card header="Fitness program form" [style]="{maxWidth: '600px'}">
+
+      <div [ngClass]="{'flex': this.wrapForm, 'gap-3': this.wrapForm, 'justify-content-between': this.wrapForm}">
+        <div [ngClass]="{'flex': this.wrapForm, 'flex-column': this.wrapForm}">
+
+          <div class="field">
+            <label for="name">Program name</label>
+            <input type="text" pInputText formControlName="name" class="w-full" name="name" id="name"
+                   placeholder="Enter name"/>
+            <small *ngIf="name.invalid && name.touched" class="block p-error">
+              <div *ngIf="name.errors?.['required']">First name is required</div>
+            </small>
+
+            <small *ngIf="price.invalid && price.touched" class="block p-error">
+              <div *ngIf="price.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="selectedCategory">Category</label>
+            <p-dropdown formControlName="selectedCategory" [options]="categories" optionLabel="name"
+                        placeholder="Select a Category"
+                        name="selectedCategory" id="selectedCategory" styleClass="w-full"
+                        [(ngModel)]="chosenCategory"></p-dropdown>
+            <small *ngIf="selectedCategory.invalid && selectedCategory.touched" class="block p-error">
+              <div *ngIf="selectedCategory.errors?.['required']">Category is required</div>
+            </small>
+
+            <small *ngIf="selectedLocation.invalid && selectedLocation.touched" class="block p-error">
+              <div *ngIf="selectedLocation.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="weightLevel">Weight Level</label>
+            <p-inputNumber inputId="minmax" mode="decimal" [min]="0" [max]="5"
+                           formControlName="weightLevel" class="w-full" name="weightLevel" id="weightLevel" [style]="{'width': '100%'}"/>
+            <small *ngIf="weightLevel.invalid && weightLevel.touched" class="block p-error">
+              <div *ngIf="weightLevel.errors?.['required']">Weight level is required</div>
+            </small>
+
+            <small *ngIf="duration.invalid && duration.touched" class="block p-error">
+              <div *ngIf="duration.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+        </div>
+        <div [ngClass]="{'flex': this.wrapForm, 'flex-column': this.wrapForm}">
+
+          <div class="field">
+            <label for="price">Price</label>
+            <input type="number" pInputText formControlName="price" class="w-full" name="price" id="price"
+                   placeholder="Enter price"/>
+            <small *ngIf="price.invalid && price.touched" class="block p-error">
+              <div *ngIf="price.errors?.['required']">Price is required</div>
+            </small>
+            <small *ngIf="name.invalid && name.touched" class="block p-error">
+              <div *ngIf="name.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="selectedLocation">Location</label>
+            <p-dropdown formControlName="selectedLocation" [options]="locations" optionLabel="name"
+                        placeholder="Select a Location"
+                        name="selectedCategory" id="selectedLocation" styleClass="w-full"
+                        [(ngModel)]="chosenLocation"></p-dropdown>
+            <small *ngIf="selectedLocation.invalid && selectedLocation.touched" class="block p-error">
+              <div *ngIf="selectedLocation.errors?.['required']">Location is required</div>
+            </small>
+
+            <small *ngIf="selectedCategory.invalid && selectedCategory.touched" class="block p-error">
+              <div *ngIf="selectedCategory.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+
+          <div class="field">
+            <label for="duration">Duration (min)</label>
+            <input type="number" pInputText formControlName="duration" class="w-full" name="duration" id="duration"
+                   placeholder="Enter duration(min)"/>
+            <small *ngIf="duration.invalid && duration.touched" class="block p-error">
+              <div *ngIf="duration.errors?.['required']">Description is required</div>
+            </small>
+
+            <small *ngIf="weightLevel.invalid && weightLevel.touched" class="block p-error">
+              <div *ngIf="weightLevel.errors?.['required']">&nbsp;</div>
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="field flex flex-column">
+        <label for="description">Description</label>
+        <textarea rows="5" cols="30" pInputTextarea formControlName="description" name="description"
+                  id="description"></textarea>
+        <small *ngIf="description.invalid && description.touched" class="block p-error">
+          <div *ngIf="description.errors?.['required']">Description is required</div>
+        </small>
+      </div>
+
+      <div *ngIf="this.linkEnabled" class="field flex flex-column">
+        <label for="link">Link</label>
+        <input type="text" pInputText formControlName="link" class="w-full" name="link" id="link"
+               placeholder="Enter link"/>
+        <small *ngIf="this.linkEnabled && link.invalid && link.touched" class="block p-error">
+          <div *ngIf="this.linkEnabled && link.errors?.['required']">Link is required</div>
+        </small>
+      </div>
+
+      <div class="field flex flex-column">
+        <label>Images</label>
+        <p-fileUpload name="demo[]" (onSelect)="onSelect($event)"
+                      [multiple]="true" accept="image/*" [maxFileSize]="1000000"
+                      #fileUpload (onRemove)="onRemove($event)">
+          <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles?.length">
+              <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+            </ul>
+          </ng-template>
+        </p-fileUpload>
+      </div>
+
+      <div *ngIf="this.chosenCategory !== null" class="field flex flex-column">
+        <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
+          <p-tabPanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
+            <p>{{ tab.content }}:</p>
+            <input type="text" pInputText class="w-full" [(ngModel)]="tab.value"
+                   placeholder="Enter {{tab.title}}" [ngModelOptions]="{standalone: true}"/>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+
+      <p-button type="submit" label="Add program" styleClass="w-full"
+                [disabled]="fitnessProgramForm.invalid"></p-button>
+    </p-card>
+  </form>
+</div>

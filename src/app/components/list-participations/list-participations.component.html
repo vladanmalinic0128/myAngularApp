@@ -1,0 +1,7 @@
+<div *ngFor="let item of participations" class="p-5">
+  <p-card header="{{item.fitnessProgramName}}">
+    <p class="m-2 align-items-start"><b>Payment Type: </b> {{item.paymentType}}</p>
+    <p *ngIf="item?.cardNumber" class="m-2 align-items-start"><b>Card Number: </b> {{item?.cardNumber}}</p>
+    <p class="m-2 align-items-end">{{item.createdAt}}</p>
+  </p-card>
+</div>

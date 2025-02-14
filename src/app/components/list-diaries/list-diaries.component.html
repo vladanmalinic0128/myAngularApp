@@ -1,0 +1,26 @@
+<div class="card-container">
+  <div [ngClass]="{'flex': this.wrapForm, 'gap-3': this.wrapForm, 'justify-content-between': this.wrapForm}">
+    <div [ngClass]="{'flex': this.wrapForm, 'flex-column': this.wrapForm}">
+      <div class="card card-element my-5" [style]="{'min-width': '600px'}">
+        <h1 class="text text-4xl ">Current Weight</h1>
+        <p-chart type="line" [data]="currentWeightData" [options]="currentWeightOptions"></p-chart>
+      </div>
+      <div class="card card-element my-5 w-full">
+        <h1 class="text text-4xl ">Training duration</h1>
+        <p-chart type="line" [data]="trainingDurationData" [options]="trainingDurationOptions"></p-chart>
+      </div>
+    </div>
+    <div [ngClass]="{'flex': this.wrapForm, 'flex-column': this.wrapForm}">
+      <h1 class="text text-4xl pt-5">Training details</h1>
+      <div class="card card-element mt-5" [style]="{'min-width': '600px'}">
+        <p-timeline [value]="diaries" align="alternate" styleClass="customized-timeline">
+          <ng-template pTemplate="content" let-diary>
+            <p-card [header]="diary.createdAt">
+              <p>{{diary.description}}</p>
+            </p-card>
+          </ng-template>
+        </p-timeline>
+      </div>
+    </div>
+  </div>
+</div>

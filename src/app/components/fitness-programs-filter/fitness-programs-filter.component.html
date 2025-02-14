@@ -1,0 +1,72 @@
+<div class="card flex justify-content-center align-items-center h-full">
+  <form [formGroup]="filterForm" (ngSubmit)="submitDetails()">
+    <p-card header="Filter data" styleClass="bg-blue-50">
+      <div class="flex flex-column bg-blue-50">
+
+        <!--Naziv-->
+        <div class="field">
+          <label for="name">Fitness program name</label>
+          <input type="text" pInputText formControlName="name" class="w-full" name="name" id="name"
+                 placeholder="Enter name"/>
+          <small *ngIf="name.invalid && name.touched" class="block p-error">
+            <div *ngIf="name.errors?.['pattern']">Only letters and numbers are acceptable</div>
+          </small>
+        </div>
+
+        <!--Kategorija-->
+        <div class="field">
+          <label for="selectedCategory">Category</label>
+          <p-dropdown formControlName="selectedCategory" [options]="categories" optionLabel="name"
+                      placeholder="Select a Category"
+                      name="selectedCategory" id="selectedCategory" styleClass="w-full" [(ngModel)]="chosenCategory"
+                      [showClear]="true"></p-dropdown>
+        </div>
+
+        <!--Lokacija-->
+        <div class="field">
+          <label for="selectedLocation">Location</label>
+          <p-dropdown formControlName="selectedLocation" [options]="locations" optionLabel="name"
+                      placeholder="Select a Location"
+                      name="selectedLocation" id="selectedLocation" styleClass="w-full"
+                      [(ngModel)]="chosenLocation" [showClear]="true"></p-dropdown>
+        </div>
+
+        <!--Nivo tezine-->
+        <div class="field flex flex-column gap-1">
+          <label for="startWeightLevel">Weight level</label>
+          <p-dropdown formControlName="startWeightLevel" [options]="weightLevels" placeholder="Min"
+                      name="startWeightLevel" id="startWeightLevel" styleClass="w-full" [(ngModel)]="startWeightLevel"
+                      [showClear]="true"></p-dropdown>
+          <p-dropdown formControlName="endWeightLevel" [options]="weightLevels" placeholder="Max"
+                      name="endWeightLevel" id="endWeightLevel" styleClass="w-full" [(ngModel)]="endWeightLevel"
+                      [showClear]="true"></p-dropdown>
+<!--          <small *ngIf="selectedCity.invalid && selectedCity.touched" class="block p-error">-->
+<!--            <div *ngIf="selectedCity.errors?.['required']">City is required</div>-->
+<!--          </small>-->
+        </div>
+
+        <!--Cijena-->
+        <div class="field flex flex-column gap-1">
+          <label for="startPrice" style="display: block;">Price (min-max)</label>
+
+          <p-inputNumber inputId="integeronly" formControlName="startPrice" id="startPrice"
+                         name="startPrice" styleClass="w-full"></p-inputNumber>
+          <p-inputNumber inputId="integeronly" formControlName="endPrice" id="endPrice"
+                         name="endPrice" styleClass="w-full"></p-inputNumber>
+<!--          <small *ngIf="selectedCity.invalid && selectedCity.touched" class="block p-error">-->
+<!--            <div *ngIf="selectedCity.errors?.['required']">City is required</div>-->
+<!--          </small>-->
+        </div>
+
+        <p-button type="submit" label="Apply filters" styleClass="w-full mt-3" [disabled]="filterForm.invalid"></p-button>
+        <small *ngIf="filterForm.errors?.['priceMinMax']" class="block p-error">
+          Price (Min > Max)
+        </small>
+        <small *ngIf="filterForm.errors?.['priceMinMax'] == null && filterForm.errors?.['weightLevelMinMax']" class="block p-error">
+          Weight level: (Min > Max)
+        </small>
+        <!--TODO DODAJ RESETOVANJE FILTERA-->
+      </div>
+    </p-card>
+  </form>
+</div>
